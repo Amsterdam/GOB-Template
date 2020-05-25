@@ -18,7 +18,7 @@ def tryStep(String message, Closure block, Closure tearDown = null) {
 
 
 node('GOBBUILD') {
-    withEnv(["DOCKER_IMAGE_NAME=datapunt/GOB_TEMPLATE_REPO_NAME:${env.BUILD_NUMBER}"
+    withEnv(["DOCKER_IMAGE_NAME=datapunt/GOB_TEMPLATE_DOCKER_REPO:${env.BUILD_NUMBER}"
             ]) {
 
         stage("Checkout") {
