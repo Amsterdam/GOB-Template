@@ -80,7 +80,7 @@ function replace_tag_at_loc() {
   REPLACE_WITH=$2
   LOCATION=$3
 
-  find "$LOCATION" -type f -exec sed -i "" -e "s/$TEMPLATE_TAG/$REPLACE_WITH/g" {} \;
+  find "$LOCATION" -type f -exec sed -i -e "s/$TEMPLATE_TAG/$REPLACE_WITH/g" {} \;
 }
 
 function replace_tag() {
