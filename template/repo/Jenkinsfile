@@ -61,6 +61,17 @@ node('GOBBUILD') {
                     }
                 }
             }
+
+            stage("Deploy to TEST") {
+                tryStep "deployment", {
+                    build job: 'Subtask_Openstack_Playbook',
+                        parameters: [
+                            [$class: 'StringParameterValue', name: 'INVENTORY', value: 'test'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOKPARAMS', value: "-e cmdb_id=GOB_TEMPLATE_OPENSTACK_PARAMS"],
+                        ]
+                }
+            }
         }
 
         if (BRANCH == "master") {
@@ -80,7 +91,8 @@ node('GOBBUILD') {
                     build job: 'Subtask_Openstack_Playbook',
                         parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'GOB_TEMPLATE_OPENSTACK_FILENAME'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOKPARAMS', value: "-e cmdb_id=GOB_TEMPLATE_OPENSTACK_PARAMS"],
                         ]
                 }
             }
